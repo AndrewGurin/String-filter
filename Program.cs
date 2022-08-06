@@ -49,15 +49,17 @@ Console.WriteLine("Исходный массив строк:");
 PrintArray(inputArray, count);
 Console.WriteLine();
 Console.Write("Введите пороговое значение фильтрации:\n> ");
-int threshold = Convert.ToInt32(Console.ReadLine());
-while (threshold < 0)
+string? thresholdInput = Console.ReadLine();
+int threshold = (thresholdInput != string.Empty) ? Convert.ToInt32(thresholdInput) : 0;
+while ((threshold < 0) || (thresholdInput == string.Empty))
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Х----------ОШИБКА!----------Х");
-    Console.WriteLine("Пороговое значение не может быть отрицательным. Повторите ввод.");
+    Console.WriteLine("Пороговое значение не может быть отрицательным или пустым. Повторите ввод.");
     Console.Write("> ");
     Console.ResetColor();
-    threshold = Convert.ToInt32(Console.ReadLine());
+    thresholdInput = Console.ReadLine();
+    threshold = (thresholdInput != string.Empty) ? Convert.ToInt32(thresholdInput) : 0;
 }
 Console.WriteLine($"Массив строк после фильтрации по длине не больше {threshold} символов:");
 PrintFilteredArray(inputArray, count, threshold);
